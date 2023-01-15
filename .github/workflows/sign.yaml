@@ -43,6 +43,7 @@ jobs:
         done
     - name: Commit
       run: |
+        git config --global user.email "bot@nirmata.com"
         git config --global user.name "Manifest signing bot"
         git add manifests/\*
         git commit --signoff -m "chore: sign manifests"
