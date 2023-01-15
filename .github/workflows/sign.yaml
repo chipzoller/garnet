@@ -1,0 +1,27 @@
+name: Test
+
+# only trigger on pull request closed events
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  merge_job:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been merged, beginning signing flow
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+        path: exceptions
+    - name: Sign
+      run: |
+        curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
+        chmod +x kubectl-sigstore-linux-amd64
+        sudo mv kubectl-sigstore-linux-amd64 /usr/local/bin/kubectl-sigstore
+        kubectl-sigstore version
+        ls -lah .
