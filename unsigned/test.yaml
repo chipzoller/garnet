@@ -1,17 +1,17 @@
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
-  name: bartest09
-  namespace: default
+  name: mytest
+  namespace: foo
 spec:
   exceptions:
-  - policyName: require-labels
+  - policyName: require-foo
     ruleNames:
-    - require-team
+    - require-bar
   match:
     any:
     - resources:
         kinds:
-        - ConfigMap
+        - Secret
         names:
-        - emergency
+        - asd
