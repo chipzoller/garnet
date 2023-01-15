@@ -26,7 +26,6 @@ jobs:
       run: |
         curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
         chmod +x kubectl-sigstore-linux-amd64
-        sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore version
-        kubectl-sigstore version
-        ls -lah exceptions/
+        sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
+        ./kubectl-sigstore version
         COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f exceptions/foo.yaml -o signed/foo.yaml
