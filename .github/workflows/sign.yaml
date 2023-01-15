@@ -28,8 +28,7 @@ jobs:
         sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
         ./kubectl-sigstore version
         ls -lah
-        FILES="/unsigned/*"
-        for f in $FILES
+        for f in $(ls ./unsigned/)
         do
           echo "Signing $f"
           COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f unsigned/$f -o signed/$f
