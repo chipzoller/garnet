@@ -17,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: ${{ github.head_ref }}
         fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     - name: Get changed files in the manifests folder
       id: changed-files
