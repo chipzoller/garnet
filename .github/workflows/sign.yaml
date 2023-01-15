@@ -28,7 +28,7 @@ jobs:
         sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
         ./kubectl-sigstore version
         ls -lah
-        COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f exceptions/foo.yaml -o signed/foo.yaml
+        COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f unsigned/foo.yaml -o signed/foo.yaml
     - name: Push signed manifests
       uses: EndBug/add-and-commit@v9
       with:
