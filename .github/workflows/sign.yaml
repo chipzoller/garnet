@@ -3,7 +3,8 @@ name: Test
 # only trigger on pull request closed events
 on:
   pull_request:
-    types: [ closed ]
+    branches:
+      - main
 
 jobs:
   merge_job:
@@ -15,43 +16,52 @@ jobs:
       actions: read
       id-token: write # Needed for OIDC and keyless signing
     steps:
-    - run: |
-        echo PR #${{ github.event.number }} has been merged, beginning signing flow
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-    - name: Sign
-      run: |
-        curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
-        chmod +x kubectl-sigstore-linux-amd64
-        sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
-        ./kubectl-sigstore version
-        ls -lah
-        for f in $(ls ./unsigned/)
-        do
-          echo "Signing $f"
-          COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f unsigned/$f -o signed/$f
-        done
-        echo "Clearing contents of unsigned directory."
-        rm unsigned/*
-    - name: Push signed manifests
-      uses: EndBug/add-and-commit@v9
+    - name: Get changed files in the manifests folder
+      id: changed-files-specific
+      uses: tj-actions/changed-files@v35
       with:
-        # Additional arguments for the git commit command. The --message argument is already set by the message input.
-        # Default: ''
-        author_name: GitHub Actions
-        commit: --signoff
-        push: --set-upstream origin signed --force
-        add: -A signed/
-        new_branch: signed
-        # Determines the way the action fills missing author name and email. Three options are available:
-        # - github_actor -> UserName <UserName@users.noreply.github.com>
-        # - user_info -> Your Display Name <your-actual@email.com>
-        # - github_actions -> github-actions <email associated with the github logo>
-        # Default: github_actor
-        default_author: github_actions
-        message: 'Signed manifest committed.'
-        # The arguments for the `git rm` command (see the paragraph below for more info)
-        # Default: ''
-        remove: './unsigned/*'
+        files: manifests/*.{yaml,yml}
+    - name: List all changed files
+      run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "$file was changed"
+        done
+
+    # - name: Sign
+    #   run: |
+    #     curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
+    #     chmod +x kubectl-sigstore-linux-amd64
+    #     sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
+    #     ./kubectl-sigstore version
+    #     ls -lah
+    #     for f in $(ls ./unsigned/)
+    #     do
+    #       echo "Signing $f"
+    #       COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f unsigned/$f -o signed/$f
+    #     done
+    #     echo "Clearing contents of unsigned directory."
+    #     rm unsigned/*
+    # - name: Push signed manifests
+    #   uses: EndBug/add-and-commit@v9
+    #   with:
+    #     # Additional arguments for the git commit command. The --message argument is already set by the message input.
+    #     # Default: ''
+    #     author_name: GitHub Actions
+    #     commit: --signoff
+    #     push: --set-upstream origin signed --force
+    #     add: -A signed/
+    #     new_branch: signed
+    #     # Determines the way the action fills missing author name and email. Three options are available:
+    #     # - github_actor -> UserName <UserName@users.noreply.github.com>
+    #     # - user_info -> Your Display Name <your-actual@email.com>
+    #     # - github_actions -> github-actions <email associated with the github logo>
+    #     # Default: github_actor
+    #     default_author: github_actions
+    #     message: 'Signed manifest committed.'
+    #     # The arguments for the `git rm` command (see the paragraph below for more info)
+    #     # Default: ''
+    #     remove: './unsigned/*'
