@@ -71,7 +71,7 @@ jobs:
     - name: Remove all unsigned manifests
       run: |
         echo "Clearing contents of unsigned directory."
-        rm unsigned/*
+        rm ./unsigned/*
     - name: Push removal of unsigned manifests
       uses: EndBug/add-and-commit@v9
       with:
