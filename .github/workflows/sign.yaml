@@ -42,6 +42,7 @@ jobs:
         done
     - name: Commit
       run: |
+        git config --global user.name "Manifest signing bot"
         git add manifests/\*
         git commit --signoff -m "chore: sign manifests"
         git push
