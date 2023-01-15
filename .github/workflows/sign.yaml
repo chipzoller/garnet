@@ -29,4 +29,4 @@ jobs:
         sudo mv kubectl-sigstore-linux-amd64 /usr/local/bin/kubectl-sigstore
         kubectl-sigstore version
         ls -lah exceptions/
-        COSIGN_EXPERIMENTAL=1 kubectl-sigstore sign --tarball=no foo.yaml -f signed/foo.yaml
+        COSIGN_EXPERIMENTAL=1 kubectl-sigstore sign --tarball=no -f foo.yaml -o signed/foo.yaml
