@@ -77,7 +77,6 @@ jobs:
       with:
         author_name: GitHub Actions
         commit: --signoff
-        push: --set-upstream origin signed --force
         add: -A unsigned/
         default_author: github_actions
         message: 'Cleaned unsigned manifests.'
