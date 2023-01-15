@@ -38,7 +38,7 @@ jobs:
         for file in ${{ steps.changed-files.outputs.all_changed_files }}
         do
           echo "Signing $f"
-          COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f $file
+          COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f $file -o $file
         done
     # - name: Push signed manifests
     #   uses: EndBug/add-and-commit@v9
