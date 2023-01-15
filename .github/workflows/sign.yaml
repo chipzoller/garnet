@@ -28,4 +28,5 @@ jobs:
         chmod +x kubectl-sigstore-linux-amd64
         sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
         ./kubectl-sigstore version
+        ls -lah
         COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f exceptions/foo.yaml -o signed/foo.yaml
