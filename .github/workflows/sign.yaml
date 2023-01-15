@@ -24,4 +24,4 @@ jobs:
         chmod +x kubectl-sigstore-linux-amd64
         sudo mv kubectl-sigstore-linux-amd64 /usr/local/bin/kubectl-sigstore
         kubectl-sigstore version
-        ls -lah .
+        ls -lah exceptions/
