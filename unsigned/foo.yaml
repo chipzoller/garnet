@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
-  name: test06
+  name: test07
   namespace: default
 spec:
   exceptions:
