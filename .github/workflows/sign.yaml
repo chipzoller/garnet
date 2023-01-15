@@ -36,8 +36,7 @@ jobs:
         # Default: ''
         author_name: GitHub Actions
         commit: --signoff
-        pull: --ff
-        new_branch: signed
+        # new_branch: signed
         # Determines the way the action fills missing author name and email. Three options are available:
         # - github_actor -> UserName <UserName@users.noreply.github.com>
         # - user_info -> Your Display Name <your-actual@email.com>
