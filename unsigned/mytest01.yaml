@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
-  name: testpolex
+  name: testpolexa
   namespace: default
 spec:
   exceptions:
