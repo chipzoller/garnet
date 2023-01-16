@@ -2,7 +2,7 @@ apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
   name: mypolex
-  namespace: foo
+  namespace: food
 spec:
   exceptions:
   - policyName: require-labels
