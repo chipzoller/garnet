@@ -28,18 +28,15 @@ jobs:
         sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
         ./kubectl-sigstore version
         ls -lah
-        for f in $(ls ./unsigned/*.yaml)
+        for f in $(ls ./unsigned)
         do
-          echo "Signing $f"
+        if [[ "$f" = *\.yaml ]]
+        then
+          echo "Signing unsigned/$f"
           COSIGN_EXPERIMENTAL=1 ./kubectl-sigstore sign --tarball=no -f unsigned/$f -o signed/$f
+          rm unsigned/$f
+        fi
         done
-        echo "Clearing contents of unsigned directory."
-        for f in $(ls ./unsigned/*.yaml)
-        do
-          echo "Removing $f"
-          rm $f
-        done
-
     - name: Push signed manifests
       uses: EndBug/add-and-commit@v9
       with:
