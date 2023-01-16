@@ -56,7 +56,7 @@ jobs:
         message: 'Signed manifest committed.'
         # The arguments for the `git rm` command (see the paragraph below for more info)
         # Default: ''
-        remove: './unsigned/*'
+        # remove: './unsigned/*'
   # clean_unsigned:
   #   runs-on: ubuntu-latest
   #   needs: merge_job
