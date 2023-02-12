@@ -2,7 +2,7 @@ apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
   name: testpolex
-  namespace: proda
+  namespace: prodab
 spec:
   exceptions:
   - policyName: require-labels
