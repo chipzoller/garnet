@@ -28,7 +28,7 @@ jobs:
         curl -sLO https://github.com/kyverno/kyverno/releases/download/${{ env.VERSION }}/kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         ./kyverno version
-        echo "I am ${{env.GITHUB_ACTOR}}"
+        echo "I am actor ${{github.actor}} and triggering actor ${{github.triggering_actor}}"
     - name: Sign
       run: |
         curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
