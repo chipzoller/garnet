@@ -1,17 +1,17 @@
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
-  name: testpolexx
-  namespace: prodab
+  name: asgasd
+  namespace: adfasdf
 spec:
   exceptions:
-  - policyName: require-labels
+  - policyName: sfds-fasadf
     ruleNames:
-    - require-team
+    - sdfa-teahhncm
   match:
     any:
     - resources:
         kinds:
-        - ConfigMap
+        - Pod
         names:
-        - emergency
+        - ncgi
