@@ -3,6 +3,7 @@ kind: ClusterPolicy
 metadata:
   name: add-labels
 spec:
+  background: false
   rules:
   - name: add-author
     match:

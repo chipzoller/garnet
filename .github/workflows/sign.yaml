@@ -29,6 +29,15 @@ jobs:
         tar -xf kyverno-cli_${{ env.VERSION }}_linux_x86_64.tar.gz
         ./kyverno version
         echo "I am actor ${{github.actor}} and triggering actor ${{github.triggering_actor}}"
+        for f in $(ls ./unsigned)
+        do
+        if [[ "$f" = *\.yaml ]]
+        then
+            echo "Adding authorship to unsigned/$f"
+            ./kyverno apply author.yaml -r unsigned/$f --set request.userInfo.username=${{github.triggering_actor}} -o unsigned/temp.yaml
+            sed '/^[[:space:]]*$/d' unsigned/temp.yaml > unsigned/$f
+        fi
+        done
     - name: Sign
       run: |
         curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
