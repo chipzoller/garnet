@@ -25,7 +25,7 @@ jobs:
         fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     - name: Sign
       run: |
-        curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.3/kubectl-sigstore-linux-amd64
+        curl -sLO https://github.com/sigstore/k8s-manifest-sigstore/releases/download/v0.4.4/kubectl-sigstore-linux-amd64
         chmod +x kubectl-sigstore-linux-amd64
         sudo mv kubectl-sigstore-linux-amd64 kubectl-sigstore
         ./kubectl-sigstore version
