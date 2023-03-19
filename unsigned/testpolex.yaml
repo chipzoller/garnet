@@ -1,17 +1,17 @@
 apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
-  name: asgasd
-  namespace: adfasdf
+  name: chippr333
+  namespace: kyverno
 spec:
   exceptions:
-  - policyName: sfds-fasadf
+  - policyName: require-labels
     ruleNames:
-    - sdfa-teahhncm
+    - require-team
   match:
     any:
     - resources:
         kinds:
-        - Pod
+        - ConfigMap
         names:
-        - ncgi
+        - emergency
