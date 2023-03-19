@@ -1,0 +1,17 @@
+apiVersion: kyverno.io/v2alpha1
+kind: PolicyException
+metadata:
+  name: davepolex
+  namespace: platform
+spec:
+  exceptions:
+  - policyName: myfoo
+    ruleNames:
+    - somefoo
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        names:
+        - foo*
